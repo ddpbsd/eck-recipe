@@ -1,0 +1,49 @@
+---
+
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: elasticsearch
+spec:
+  version: 8.16.1
+  nodeSets:
+  - name: default
+    config:
+      node.roles: [ "master", "data", "ingest", "transform", "ml" ]
+      node.store.allow_mmap: false
+    podTemplate:
+      metadata:
+        labels:
+          deployment: prod
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 8Gi
+              cpu: 1
+          env:
+          - name: ES_JAVA_OPTS
+            value: "-Xms3g -Xmx3g"
+    count: 3
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data # Do not change this name unless you set up a volume mount for the data path.
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 100Gi
+        storageClassName: local-data
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+        loadBalancerIP: 192.168.8.80
+    tls:
+      selfSignedCertificate:
+        subjectAltNames:
+          - ip: 192.168.8.80
+          - dns: elasticsearch.k8s.wafflelab.online
+

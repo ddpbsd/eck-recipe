@@ -1,0 +1,53 @@
+---
+
+apiVersion: agent.k8s.elastic.co/v1alpha1
+kind: Agent
+metadata: 
+  name: elastic-agent
+spec:
+  version: 8.12.1
+  kibanaRef:
+    name: kibana
+  fleetServerRef: 
+    name: fleet-server
+  mode: fleet
+  policyID: eck-agent
+  daemonSet:
+    podTemplate:
+      spec:
+        serviceAccountName: elastic-agent
+        hostNetwork: true
+        dnsPolicy: ClusterFirstWithHostNet
+        automountServiceAccountToken: true
+        securityContext:
+          runAsUser: 0
+        containers:
+        - name: agent
+          volumeMounts:
+          - name: ca
+            mountPath: /mnt/elastic-internal/elasticsearch-association/default/eck-lab/certs
+            readOnly: true
+          - name: waffleca
+            mountPath: /mnt/elastic-internal/elasticsearch-association/default/eck-lab/certs2
+            readOnly: true
+          command:
+          - bash
+          - -c
+          - |
+            #!/usr/bin/env bash
+            set -e
+            if [[ -f /mnt/elastic-internal/elasticsearch-association/default/eck-lab/certs/ca.crt ]]; then
+              cp /mnt/elastic-internal/elasticsearch-association/default/eck-lab/certs/ca.crt /usr/local/share/ca-certificates
+              cp /mnt/elastic-internal/elasticsearch-association/default/eck-lab/certs2/wafflelab-*.crt /usr/local/share/ca-certificates
+              update-ca-certificates
+            fi
+            /usr/bin/tini -- /usr/local/bin/docker-entrypoint -e
+        volumes:
+        - name: ca
+          secret:
+            secretName: fleet-tls
+        - name: waffleca
+          secret:
+            secretName: waffle-ca
+          
+

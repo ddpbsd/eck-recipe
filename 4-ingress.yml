@@ -1,0 +1,146 @@
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: >-
+      [{"addresses":["192.168.8.3","192.168.8.4","192.168.8.5"],"port":80,"protocol":"HTTP","serviceName":"default:esprod-es-http","ingressName":"default:es-http","hostname":"elasticsearch.k8s.wafflelab.online","path":"/","allNodes":false}]
+  creationTimestamp: '2023-12-12T13:22:11Z'
+  generation: 1
+  managedFields:
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:loadBalancer:
+            f:ingress: {}
+      manager: nginx-ingress-controller
+      operation: Update
+      subresource: status
+      time: '2023-12-12T13:22:44Z'
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:field.cattle.io/publicEndpoints: {}
+        f:spec:
+          f:defaultBackend:
+            .: {}
+            f:service:
+              .: {}
+              f:name: {}
+              f:port:
+                .: {}
+                f:number: {}
+          f:ingressClassName: {}
+          f:rules: {}
+      manager: rancher
+      operation: Update
+      time: '2023-12-12T13:22:44Z'
+  name: es-http
+  namespace: default
+  resourceVersion: '535068'
+  uid: 4550eba2-4055-486c-86da-ef7839fd59fb
+spec:
+  defaultBackend:
+    service:
+      name: esprod-es-http
+      port:
+        number: 9200
+  ingressClassName: nginx
+  rules:
+    - host: elasticsearch.k8s.wafflelab.online
+      http:
+        paths:
+          - backend:
+              service:
+                name: esprod-es-http
+                port:
+                  number: 9200
+            path: /
+            pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+      - ip: 192.168.8.3
+      - ip: 192.168.8.4
+      - ip: 192.168.8.5
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: >-
+      [{"addresses":["192.168.8.3","192.168.8.4","192.168.8.5"],"port":443,"protocol":"HTTPS","serviceName":"default:kibana-kb-http","ingressName":"default:kibana-http","hostname":"kibana.k8s.wafflelab.online","path":"/","allNodes":false}]
+  creationTimestamp: '2023-12-12T16:10:03Z'
+  generation: 1
+  managedFields:
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:loadBalancer:
+            f:ingress: {}
+      manager: nginx-ingress-controller
+      operation: Update
+      subresource: status
+      time: '2023-12-12T16:10:44Z'
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:field.cattle.io/publicEndpoints: {}
+        f:spec:
+          f:defaultBackend:
+            .: {}
+            f:service:
+              .: {}
+              f:name: {}
+              f:port:
+                .: {}
+                f:number: {}
+          f:ingressClassName: {}
+          f:rules: {}
+          f:tls: {}
+      manager: rancher
+      operation: Update
+      time: '2023-12-12T16:10:44Z'
+  name: kibana-http
+  namespace: default
+  resourceVersion: '629074'
+  uid: 8d3a4f36-d604-4d96-a2b2-0f89cbc20062
+spec:
+  defaultBackend:
+    service:
+      name: kibana-kb-http
+      port:
+        number: 5601
+  ingressClassName: nginx
+  rules:
+    - host: kibana.k8s.wafflelab.online
+      http:
+        paths:
+          - backend:
+              service:
+                name: kibana-kb-http
+                port:
+                  number: 5601
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - kibana.k8s.wafflelab.online
+      secretName: kibana
+status:
+  loadBalancer:
+    ingress:
+      - ip: 192.168.8.3
+      - ip: 192.168.8.4
+      - ip: 192.168.8.5

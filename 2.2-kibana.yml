@@ -1,0 +1,86 @@
+---
+
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana
+spec:
+  version: 8.16.1
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+        loadBalancerIP: 192.168.18.81
+    tls:
+      selfSignedCertificate:
+        subjectAltNames:
+          - ip: 192.168.8.81
+          - dns: kibana.k8s.wafflelab.online
+  podTemplate:
+    metadata:
+      labels:
+        elastictype: kibana
+        deployment: prod
+    spec:
+      containers:
+      - name: kibana
+        resources:
+          limits:
+            memory: 2Gi
+            cpu: 1
+  config:
+    server.publicBaseUrl: https://prod-kb.lab.wafflelab.online
+    xpack.reporting.kibanaServer.hostname: prod-kb.lab.wafflelab.online
+    xpack.fleet.agents.elasticsearch.hosts: ["https://prod-es.lab.wafflelab.online:9200"]
+    xpack.fleet.agents.fleet_server.hosts: ["https://fleet.lab.wafflelab.online:8220"]
+    xpack.fleet.packages:
+    - name: system
+      version: latest
+    - name: elastic_agent
+      version: latest
+    - name: fleet_server
+      version: latest
+    - name: kubernetes
+      version: latest
+    - name: apm
+      version: latest
+    xpack.fleet.agentPolicies:
+    - name: Fleet Server on ECK policy
+      id: eck-fleet-server
+      namespace: default
+      monitoring_enabled:
+      - logs
+      - metrics
+      unenroll_timeout: 900
+      package_policies:
+      - name: fleet_server-1
+        id: fleet_server-1
+        package:
+          name: fleet_server
+    - name: Elastic Agent on ECK policy
+      id: eck-agent
+      namespace: default
+      monitoring_enabled:
+      - logs
+      - metrics
+      unenroll_timeout: 900
+      package_policies:
+      - package:
+          name: system
+        name: system-1
+      - package:
+          name: kubernetes
+        name: kubernetes-1
+      - package:
+          name: apm
+        name: apm-1
+        inputs:
+        - type: apm
+          enabled: false
+          vars:
+          - name: host
+            value: 0.0.0.0:8200
+

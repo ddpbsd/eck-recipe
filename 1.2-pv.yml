@@ -1,0 +1,78 @@
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-elasticsearch1
+spec:
+  capacity:
+    storage: 200Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-data
+  local:
+    path: /data/elasticsearch1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - caladan
+            - synchrony
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-elasticsearch2
+spec:
+  capacity:
+    storage: 200Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-data
+  local:
+    path: /data/elasticsearch2
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - caladan
+            - synchrony
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-elasticsearch3
+spec:
+  capacity:
+    storage: 200Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-data
+  local:
+    path: /data/elasticsearch3
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - caladan
+            - synchrony
+
