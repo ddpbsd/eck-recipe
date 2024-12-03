@@ -21,7 +21,7 @@ spec:
           - dns: kibana.k8s.wafflelab.online
   podTemplate:
     metadata:
-      labels:
+     .k8sels:
         elastictype: kibana
         deployment: prod
     spec:
@@ -32,10 +32,10 @@ spec:
             memory: 2Gi
             cpu: 1
   config:
-    server.publicBaseUrl: https://prod-kb.lab.wafflelab.online
-    xpack.reporting.kibanaServer.hostname: prod-kb.lab.wafflelab.online
-    xpack.fleet.agents.elasticsearch.hosts: ["https://prod-es.lab.wafflelab.online:9200"]
-    xpack.fleet.agents.fleet_server.hosts: ["https://fleet.lab.wafflelab.online:8220"]
+    server.publicBaseUrl: https://kibana.k8s.wafflelab.online
+    xpack.reporting.kibanaServer.hostname: kibana.k8s.wafflelab.online
+    xpack.fleet.agents.elasticsearch.hosts: ["https://elasticsearch.k8s.wafflelab.online:9200"]
+    xpack.fleet.agents.fleet_server.hosts: ["https://fleet.k8s.wafflelab.online:8220"]
     xpack.fleet.packages:
     - name: system
       version: latest
