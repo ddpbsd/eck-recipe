@@ -21,7 +21,7 @@ spec:
           - dns: kibana.k8s.wafflelab.online
   podTemplate:
     metadata:
-     .k8sels:
+      labels:
         elastictype: kibana
         deployment: prod
     spec:
