@@ -1,6 +1,0 @@
-        containers:
-        - name: elasticsearch
-          volumeMounts:
-          - name: ca
-            mountPath: /usr/share/elasticsearch/config/certificates
-            readOnly: true
