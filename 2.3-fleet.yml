@@ -12,6 +12,16 @@ spec:
   mode: fleet
   fleetServerEnabled: true
   policyID: eck-fleet-server
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+        loadBalancerIP: 192.168.8.82
+    tls:
+      selfSignedCertificate:
+        subjectAltNames:
+          - ip: 192.168.8.82
+          - dns: fleet.k8s.wafflelab.online
   deployment:
     replicas: 1
     podTemplate:
