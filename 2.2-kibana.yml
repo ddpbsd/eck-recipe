@@ -9,6 +9,8 @@ spec:
   count: 1
   elasticsearchRef:
     name: elasticsearch
+  secureSettings:
+  - secretName: kibana-secret-settings
   http:
     service:
       spec:
