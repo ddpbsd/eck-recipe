@@ -1,0 +1,15 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: iscsi-targetd-vg-targetd ## change this
+provisioner: iscsi-targetd
+parameters:
+  targetPortal: 192.168.8.something ## XXX
+  iqn: iqn.2023.online.wafflelab:targetd ## XXX
+  iscsiInterface: default
+  volumeGroup: vg-targetd ## XXX
+  initiators: iqn.2023.online.wafflelab:node1 ## XXX
+  chapAuthDiscovery: "false"
+  chapAuthSession: "false"
+
