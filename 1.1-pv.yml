@@ -13,7 +13,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-data
   local:
-    path: /data/elasticsearch1
+    path: /data/local-elasticsearch1
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -39,7 +39,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-data
   local:
-    path: /data/elasticsearch2
+    path: /data/local-elasticsearch2
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -65,7 +65,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-data
   local:
-    path: /data/elasticsearch3
+    path: /data/local-elasticsearch3
   nodeAffinity:
     required:
       nodeSelectorTerms:
