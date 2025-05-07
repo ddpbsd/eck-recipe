@@ -2,14 +2,13 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: iscsi-targetd-vg-targetd ## change this
+  name: iscsi-targetd-iscsi_stuff
 provisioner: iscsi-targetd
 parameters:
-  targetPortal: 192.168.8.something ## XXX
-  iqn: iqn.2023.online.wafflelab:targetd ## XXX
+  targetPortal: 192.168.8.6
+  iqn: iqn.2023.online.wafflelab.k8s:elasticsearch0
   iscsiInterface: default
-  volumeGroup: vg-targetd ## XXX
-  initiators: iqn.2023.online.wafflelab:node1 ## XXX
-  chapAuthDiscovery: "false"
-  chapAuthSession: "false"
+  lun: 0
+  fsType: ext4
+  readOnly: false
 
