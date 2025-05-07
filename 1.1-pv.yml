@@ -23,6 +23,7 @@ spec:
             values:
             - caladan
             - synchrony
+            - rossak
 
 ---
 
@@ -49,6 +50,7 @@ spec:
             values:
             - caladan
             - synchrony
+            - rossak
 
 ---
 
@@ -75,4 +77,5 @@ spec:
             values:
             - caladan
             - synchrony
+            - rossak
 
