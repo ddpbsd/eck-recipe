@@ -5,7 +5,7 @@ kind: Elasticsearch
 metadata:
   name: elasticsearch
 spec:
-  version: 8.17.1
+  version: 9.0.1
   nodeSets:
   - name: default
     config:
