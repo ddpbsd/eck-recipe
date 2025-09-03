@@ -24,6 +24,7 @@ spec:
             - caladan
             - synchrony
             - rossak
+            - buzzell
 
 ---
 
@@ -51,6 +52,7 @@ spec:
             - caladan
             - synchrony
             - rossak
+            - buzzell
 
 ---
 
@@ -78,4 +80,5 @@ spec:
             - caladan
             - synchrony
             - rossak
+            - buzzell
 
