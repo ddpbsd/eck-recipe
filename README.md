@@ -78,4 +78,21 @@ DELETE _security/role/system-index-superuser
 
 ```
 
+## to do
+
+- livenessProbe
+- cert-manager
+- figure out storage
+
+## outline
+
+- install k3s
+- install cert-manager
+- setup cert-manager
+- install rancher
+- setup rancher
+- install eck
+- install elasticsearch
+- install kibana
+- install elastic-agent/fleet
 
