@@ -1,0 +1,22 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wafflelab-ca
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: wafflelab-ca
+  subject:
+    organizations:
+      - wafflelab
+    organizationalUnits:
+      - k8s
+  secretName: wafflelab-ca-secret
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: self-signed-issuer
+    kind: Issuer
+    group: cert-manager.io
