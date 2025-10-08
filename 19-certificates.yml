@@ -22,3 +22,6 @@ spec:
     kind: ClusterIssuer
     name: wafflelab-ca
   secretName: elasticsearch-es-cert
+  usages:
+    - server auth
+    - client auth
