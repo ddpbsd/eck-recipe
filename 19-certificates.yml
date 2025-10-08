@@ -1,0 +1,24 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: elasticsearch-es-cert
+spec:
+  isCA: false
+  dnsNames:
+    - elasticsearch-es-http
+    - elasticsearch-es-http.default.svc
+    - elasticsearch-es-http.default.svc.cluster.local
+    - elaticsearch.k8s.wafflelab.online
+    - elaticsearch.k8s.wafflelab.net
+  subject:
+    organizations:
+      - wafflelab
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  issuerRef:
+    kind: ClusterIssuer
+    name: wafflelab-ca
+  secretName: elasticsearch-es-cert
