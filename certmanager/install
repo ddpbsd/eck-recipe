@@ -131,5 +131,30 @@ spec:
     secretName: wafflelab-ca-secret
 ```
 
+## test it out
+
+verify the server cert with the CA cert:
+
+```text
+openssl verify -CAfile <(kubectl -n cert-manager get secret wafflelab-ca-secret  -o jsonpath='{.data.ca\.crt}' | base64 -d) <(kubectl -n test get secret test-server-tls -o jsonpath='{.data.tls\.crt}' | base64 -d)
+```
+
+### test client and server
+
+#### server
+
+```text
+echo 'hello world' > test.txt
+openssl s_server -cert <(kubectl -n test get secret test-server-tls -o jsonpath='{.data.tls\.crt}' | base64 -d) -key <(kubectl -n test get secret test-server-tls -o jsonpath='{.data.tls\.key}' | base64 -d) -CAfile <(kubectl -n cert-manager get secret wafflelab-ca-secret  -o jsonpath='{.data.ca\.crt}' | base64 -d) -WWW -port 12345 -verify_return_error -Verify 1
+```
+
+#### client
+
+```text
+echo -e 'GET /test.txt HTTP/1.1\r\n\r\n' | openssl s_client -cert <(kubectl -n test get secret test-client-tls -o jsonpath='{.data.tls\.crt}' | base64 -d) -key <(kubectl -n test get secret test-client-tls -o jsonpath='{.data.tls\.key}' | base64 -d) -CAfile <(kubectl -n cert-manager get secret wafflelab-ca-secret  -o jsonpath='{.data.ca\.crt}' | base64 -d) -connect localhost:12345 -quiet
+```
+
+## echo server
+
 
 
