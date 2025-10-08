@@ -6,7 +6,9 @@ metadata:
   namespace: cert-manager
 spec:
   isCA: true
-  commonName: wafflelab-ca
+  commonName: wafflelab-ca.wafflelab.net
+  duration: 8760h
+  renewBefore: 7200h
   subject:
     organizations:
       - wafflelab
