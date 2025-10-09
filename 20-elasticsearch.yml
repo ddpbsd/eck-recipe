@@ -44,3 +44,31 @@ spec:
       certificate:
         secretName: elasticsearch-es-cert
 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: elasticsearch-es
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: elasticsearch-es-http
+            port:
+              number: 9200
+  tls:
+  - hosts:
+    - elasticsearch.k8s.wafflelab.online
+    - elasticsearc.wafflab.net
+    - elasticsearc.k8s.wafflab.net
+    - elasticsearch-es-http
+    - elasticsearch-es-http.default.svc
+    - elasticsearch-es-http.default.svc.cluster.local
+    secretName: elasticsearch-es-cert
