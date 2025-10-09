@@ -59,8 +59,8 @@ spec:
   tls:
   - hosts:
     - elasticsearch.k8s.wafflelab.online
-    - elasticsearc.wafflab.net
-    - elasticsearc.k8s.wafflab.net
+    - elasticsearch.wafflab.net
+    - elasticsearch.k8s.wafflab.net
     - elasticsearch-es-http
     - elasticsearch-es-http.default.svc
     - elasticsearch-es-http.default.svc.cluster.local
