@@ -36,32 +36,14 @@ spec:
           requests:
             storage: 100Gi
         storageClassName: local-data
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+        loadBalancerIP: 192.168.8.80
+    tls:
+      selfSignedCertificate:
+        disabled: true
+      certificate:
+        secretName: elasticsearch-es-cert 
 
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: elasticsearch-es
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: elasticsearch-es-http
-            port:
-              number: 9200
-  tls:
-  - hosts:
-    - elasticsearch.k8s.wafflelab.online
-    - elasticsearch.wafflab.net
-    - elasticsearch.k8s.wafflab.net
-    - elasticsearch-es-http
-    - elasticsearch-es-http.default.svc
-    - elasticsearch-es-http.default.svc.cluster.local
-    secretName: elasticsearch-es-cert
