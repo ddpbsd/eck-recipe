@@ -11,6 +11,7 @@ spec:
     - elasticsearch-es-http.default.svc.cluster.local
     - elaticsearch.k8s.wafflelab.online
     - elaticsearch.k8s.wafflelab.net
+    - elaticsearch.wafflelab.net
   subject:
     organizations:
       - wafflelab
