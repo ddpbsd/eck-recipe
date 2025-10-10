@@ -65,6 +65,8 @@ spec:
     - fleet-http
     - fleet-http.default.svc
     - fleet-http.default.svc.cluster.local
+    - fleet-server-agent-http.default.svc
+    - fleet-server-agent-http
     - fleet.k8s.wafflelab.online
     - fleet.k8s.wafflelab.net
     - fleet.wafflelab.net
