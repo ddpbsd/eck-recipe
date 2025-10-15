@@ -17,9 +17,9 @@ spec:
     - elasticsearch.k8s.wafflelab.online
     - elasticsearch.wafflelab.net
     - elasticsearch.k8s.wafflelab.net
-    - elasticsearch-es-http
-    - elasticsearch-es-http.default.svc
-    - elasticsearch-es-http.default.svc.cluster.local
+    - elasticsearch-wln-es-http
+    - elasticsearch-wln-es-http.default.svc
+    - elasticsearch-wln-es-http.default.svc.cluster.local
   issuerRef:
     kind: ClusterIssuer
     name: wafflelab-net-ca
