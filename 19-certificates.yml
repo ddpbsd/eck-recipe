@@ -2,35 +2,41 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: elasticsearch-es-cert
+  name: elasticsearch-k8s
+  namespace: default
 spec:
+  secretName: elasticsearch-es-secret
   isCA: false
-  dnsNames:
-    - elasticsearch-es-http
-    - elasticsearch-es-http.default.svc
-    - elasticsearch-es-http.default.svc.cluster.local
-    - elaticsearch.k8s.wafflelab.online
-    - elaticsearch.k8s.wafflelab.net
-    - elaticsearch.wafflelab.net
+  commonName: elasticsearch.k8s.wafflelab.online
   subject:
     organizations:
       - wafflelab
+    organizationalUnits:
+      - k8s
+  dnsNames:
+    - elasticsearch.k8s.wafflelab.online
+    - elasticsearch.wafflelab.net
+    - elasticsearch.k8s.wafflelab.net
+    - elasticsearch-es-http
+    - elasticsearch-es-http.default.svc
+    - elasticsearch-es-http.default.svc.cluster.local
+  issuerRef:
+    kind: ClusterIssuer
+    name: wafflelab-ca
+  usages:
+    - server auth
+    - client auth
   privateKey:
     algorithm: RSA
     encoding: PKCS1
     size: 2048
-  issuerRef:
-    kind: ClusterIssuer
-    name: wafflelab-ca
-  secretName: elasticsearch-es-cert
-  usages:
-    - server auth
-    - client auth
+  duration: 8760h
+  renewBefore: 7200h
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: kibana-kb-cert
+  name: kibana-kb
 spec:
   isCA: false
   dnsNames:
@@ -43,6 +49,8 @@ spec:
   subject:
     organizations:
       - wafflelab
+    organizationalUnits:
+      - k8s
   privateKey:
     algorithm: RSA
     encoding: PKCS1
@@ -50,15 +58,17 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: wafflelab-ca
-  secretName: kibana-kb-cert
+  secretName: kibana-kb-secret
   usages:
     - server auth
     - client auth
+  duration: 8760h
+  renewBefore: 7200h
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: fleet-cert
+  name: fleet
 spec:
   isCA: false
   dnsNames:
@@ -80,7 +90,9 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: wafflelab-ca
-  secretName: fleet-cert
+  secretName: fleet-secret
   usages:
     - server auth
     - client auth
+  duration: 8760h
+  renewBefore: 7200h
