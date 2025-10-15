@@ -10,7 +10,7 @@ spec:
   elasticsearchRef:
     name: elasticsearch
   secureSettings:
-  - secretName: kibana-secret-settings
+  - secretName: kibana-kb-settings
   http:
     service:
       spec:
@@ -20,7 +20,7 @@ spec:
       selfSignedCertificate:
         disabled: true
       certificate:
-        secretName: kibana-kb-cert
+        secretName: kibana-kb-secret
   podTemplate:
     metadata:
       labels:
