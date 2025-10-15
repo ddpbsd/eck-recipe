@@ -22,7 +22,7 @@ spec:
     - elasticsearch-es-http.default.svc.cluster.local
   issuerRef:
     kind: ClusterIssuer
-    name: wafflelab-ca
+    name: wafflelab-net-ca
   usages:
     - server auth
     - client auth
@@ -57,7 +57,7 @@ spec:
     size: 2048
   issuerRef:
     kind: ClusterIssuer
-    name: wafflelab-ca
+    name: wafflelab-net-ca
   secretName: kibana-kb-secret
   usages:
     - server auth
@@ -89,7 +89,7 @@ spec:
     size: 2048
   issuerRef:
     kind: ClusterIssuer
-    name: wafflelab-ca
+    name: wafflelab-net-ca
   secretName: fleet-secret
   usages:
     - server auth

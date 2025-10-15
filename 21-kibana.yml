@@ -36,7 +36,7 @@ spec:
   config:
     server.publicBaseUrl: https://kibana.k8s.wafflelab.online
     xpack.reporting.kibanaServer.hostname: kibana.k8s.wafflelab.online
-    xpack.fleet.agents.elasticsearch.hosts: ["https://elasticsearch.k8s.wafflelab.online:9200"]
+    xpack.fleet.agents.elasticsearch.hosts: ["https://relay.lab.wafflelab.online:9200"]
     xpack.fleet.agents.fleet_server.hosts: ["https://fleet.k8s.wafflelab.online:8220"]
     xpack.fleet.packages:
       - name: system
