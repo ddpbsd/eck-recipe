@@ -6,4 +6,4 @@ metadata:
   namespace: cert-manager
 spec:
   ca:
-    secretName: wafflelab-ca-secret
+    secretName: init-ca-secret
