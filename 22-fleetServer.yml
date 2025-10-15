@@ -21,7 +21,7 @@ spec:
       selfSignedCertificate:
         disabled: true
       certificate:
-        secretName: fleet-cert
+        secretName: fleet-secret
   deployment:
     replicas: 1
     podTemplate:
