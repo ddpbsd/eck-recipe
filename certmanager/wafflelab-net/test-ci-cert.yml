@@ -1,0 +1,28 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wafflelab-net
+  namespace: cert-manager
+spec:
+  secretName: wafflelab-net-ca-secret
+  isCA: true
+  commonName: wafflelab-ca.wafflelab.net
+  subject:
+    organizations:
+      - wafflelab.net
+    organizationalUnits:
+      - k8s
+      - testing
+      - wafflelab.net
+  dnsNames:
+    - wafflelab-ca.wafflelab.net
+  issuerRef:
+    kind: Issuer
+    name: self-signed-issuer
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  duration: 8760h
+  renewBefore: 7200h
