@@ -12,6 +12,7 @@ spec:
       - wafflelab
     organizationalUnits:
       - k8s
+      - init-ca
   secretName: init-ca-secret
   privateKey:
     algorithm: ECDSA
