@@ -45,5 +45,5 @@ spec:
       selfSignedCertificate:
         disabled: true
       certificate:
-        secretName: elasticsearch-es-cert 
+        secretName: elasticsearch-es-secret
 
