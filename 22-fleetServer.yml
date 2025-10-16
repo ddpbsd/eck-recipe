@@ -9,7 +9,7 @@ spec:
   kibanaRef:
     name: kibana
   elasticsearchRefs:
-  - name: elasticsearch
+  - name: elasticsearch-wln
   mode: fleet
   fleetServerEnabled: true
   http:
