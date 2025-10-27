@@ -19,7 +19,7 @@ spec:
   nodeSets:
   - name: default
     config:
-      node.roles: [ "master", "data", "ingest", "transform", "ml" ]
+      node.roles: [ "master", "data", "ingest", "transform", "ml", "remote_cluster_client" ]
       node.store.allow_mmap: false
     podTemplate:
       metadata:
