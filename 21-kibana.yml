@@ -5,7 +5,7 @@ kind: Kibana
 metadata:
   name: kibana
 spec:
-  version: 9.1.5
+  version: 9.2.0
   count: 1
   elasticsearchRef:
     name: elasticsearch-wln
@@ -36,7 +36,8 @@ spec:
   config:
     server.publicBaseUrl: https://kibana.k8s.wafflelab.online
     xpack.reporting.kibanaServer.hostname: kibana.k8s.wafflelab.online
-    xpack.fleet.agents.elasticsearch.hosts: ["https://elasticsearch.k8s.wafflelab.online:9200", "https://elasticsearch-wln.default.svc:9200"]
+    xpack.fleet.agents.elasticsearch.hosts: ["https://elasticsearch.k8s.wafflelab.online:9200"]
+    #xpack.fleet.agents.elasticsearch.hosts: ["https://elasticsearch.k8s.wafflelab.online:9200", "https://elasticsearch-wln.default.svc:9200"]
     xpack.fleet.agents.fleet_server.hosts: ["https://fleet.k8s.wafflelab.online:8220"]
     xpack.fleet.packages:
       - name: system
