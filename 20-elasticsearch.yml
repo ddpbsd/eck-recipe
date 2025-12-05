@@ -35,7 +35,7 @@ spec:
           resources:
             limits:
               memory: 8Gi
-              cpu: 1
+              cpu: 2
           env:
           - name: ES_JAVA_OPTS
             value: "-Xms4g -Xmx4g"
