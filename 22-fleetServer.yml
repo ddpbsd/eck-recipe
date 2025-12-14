@@ -5,7 +5,7 @@ metadata:
   name: fleet-server
   namespace: default
 spec:
-  version: 9.2.1
+  version: 9.2.2
   kibanaRef:
     name: kibana
   elasticsearchRefs:
