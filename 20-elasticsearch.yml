@@ -6,7 +6,7 @@ metadata:
   name: elasticsearch-wln
   namespace: default
 spec:
-  version: 9.2.3
+  version: 9.2.4
   monitoring:
     metrics:
       elasticsearchRefs:
