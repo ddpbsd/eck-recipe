@@ -38,12 +38,15 @@ spec:
   fleetServerRef:
     name: fleet-server
   mode: fleet
-  policyID: synthetics
+  policyID: synth-agent
   deployment:
-    replicas: 1
+    replicas: 2
     podTemplate:
       spec:
         serviceAccountName: elastic-agent
+        hostNetwork: true
+        dnsPolicy: ClusterFirstWithHostNet
+        automountServiceAccountToken: true
         securityContext:
           runAsUser: 0
         volumes:
