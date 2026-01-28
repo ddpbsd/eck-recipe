@@ -24,3 +24,32 @@ spec:
         volumes:
         - name: agent-data
           emptyDir: {}
+
+---
+apiVersion: agent.k8s.elastic.co/v1alpha1
+kind: Agent
+metadata:
+  name: synthetics-agent
+  namespace: default
+spec:
+  version: 9.2.4
+  kibanaRef:
+    name: kibana
+  fleetServerRef:
+    name: fleet-server
+  mode: fleet
+  policyId: synthetics
+  deployment:
+    replicas: 1
+    podTemplate:
+      spec:
+        serviceAccountName: elastic-agent
+        hostNetwork: true
+        dnsPolicy: ClusterFirstWithHostNet
+        automountServiceAccountToken: true
+        securityContext:
+          runAsUser: 0
+        volumes:
+        - name: agent-data
+          emptyDir: {}
+
