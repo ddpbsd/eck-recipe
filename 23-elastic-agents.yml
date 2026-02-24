@@ -5,7 +5,7 @@ metadata:
   name: elastic-agent
   namespace: default
 spec:
-  version: 9.2.4
+  version: 9.3.0
   kibanaRef:
     name: kibana
   fleetServerRef:
