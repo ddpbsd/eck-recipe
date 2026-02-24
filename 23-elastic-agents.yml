@@ -52,3 +52,6 @@ spec:
         volumes:
         - name: agent-data
           emptyDir: {}
+        containers:
+          - name: elastic-agent-complete
+            image: docker.elastic.co/elastic-agent/elastic-agent-complete:9.2.4
