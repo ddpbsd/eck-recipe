@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: hids-one-issuer
+spec:
+  acme:
+    solvers:
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token

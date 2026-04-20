@@ -1,5 +1,43 @@
 # acme
 
+I had originally planned on using the gandi webhook, but I had questions the documentation didn't answer.
+I'm sure if I knew more about it all it would be obvious, but I'd rather move on than fuck with it now.
+
+## cloudflare
+
+I'm not a huge fan of the company, but it seemed the easiest at the moment.
+I'll reconsider using it later.
+
+### api key
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudflare-api-token-secret
+type: Opaque
+stringData:
+  api-token: APITOKEN
+```
+
+### issuer
+
+```yaml
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: hids-one-issuer
+spec:
+  acme:
+    solvers:
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token
+```
 
 ## gandi webhook
 
