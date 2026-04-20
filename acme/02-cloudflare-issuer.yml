@@ -5,9 +5,14 @@ metadata:
   name: hids-one-issuer
 spec:
   acme:
-    solvers:
-    - dns01:
-        cloudflare:
-          apiTokenSecretRef:
-            name: cloudflare-api-token-secret
-            key: api-token
+    email: EMAIL_ADDRESS
+    profile: tlsserver
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+  privateKeySecretRef:
+    name: letsencrypt-staging
+  solvers:
+  - dns01:
+      cloudflare:
+        apiTokenSecretRef:
+          name: cloudflare-api-token-secret
+          key: api-token
