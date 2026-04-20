@@ -15,9 +15,6 @@ spec:
       - hids.one
   dnsNames:
     - elasticsearch.hids.one
-    - elasticsearch-es-http
-    - elasticsearch-es-http.default.svc
-    - elasticsearch-es-http.default.svc.cluster.local
   issuerRef:
     kind: ClusterIssuer
     name: hids-one-issuer
