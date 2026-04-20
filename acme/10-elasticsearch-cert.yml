@@ -1,0 +1,32 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: elasticsearch-k8s
+  namespace: default
+spec:
+  secretName: elasticsearch-es-secret
+  isCA: false
+  commonName: elasticsearch.hids.one
+  subject:
+    organizations:
+      - elastic
+    organizationalUnits:
+      - hids.one
+  dnsNames:
+    - elasticsearch.hids.one
+    - elasticsearch-es-http
+    - elasticsearch-es-http.default.svc
+    - elasticsearch-es-http.default.svc.cluster.local
+  issuerRef:
+    kind: ClusterIssuer
+    name: hids-one-issuer
+  usages:
+    - server auth
+    - client auth
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  duration: 8760h
+  renewBefore: 7200h
