@@ -10,6 +10,8 @@ I'll reconsider using it later.
 
 ### api key
 
+This should be installed in the `cert-manager` namespace.
+
 ```yaml
 ---
 apiVersion: v1
