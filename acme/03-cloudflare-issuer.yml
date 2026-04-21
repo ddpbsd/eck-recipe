@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: hids-one-issuer
+  name: stg-hids-one-issuer
 spec:
   acme:
     email: EMAIL_ADDRESS
     profile: tlsserver
-    server: https://acme-v02.api.letsencrypt.org/directory
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
