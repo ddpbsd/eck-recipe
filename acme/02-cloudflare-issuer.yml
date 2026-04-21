@@ -13,6 +13,8 @@ spec:
     solvers:
     - dns01:
         cloudflare:
+          email:
           apiTokenSecretRef:
             name: cloudflare-api-token-secret
             key: api-token
+          zoneID:
