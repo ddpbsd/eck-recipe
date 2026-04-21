@@ -5,7 +5,7 @@ metadata:
   name: kibana-hids-one
   namespace: default
 spec:
-  secretName: elasticsearch-es-secret
+  secretName: kibana-kb-secret
   isCA: false
   commonName: kibana.hids.one
   subject:
