@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: kibana-hids-one
+  name: fleet-hids-one
   namespace: default
 spec:
   secretName: fleet-secret
