@@ -4,11 +4,11 @@ kind: Service
 metadata:
   name: elasticsearch-wln-service
   namespace: default
-specc:
+spec:
   type: LoadBalancer
-  loadBalancertIP: 192.168.8.80
+  loadBalancerIP: 192.168.8.80
   ports:
   - port: 9200
-  targetPort: 443
+    targetPort: 443
   selector:
     app: elasticsearch-ingress
