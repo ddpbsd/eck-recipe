@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  namespace: default
+  name: elasticsearch-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: elasticsearch.hids.one
+    http:
+      paths:
+      - backend:
+          service:
+            name: elasticsearch-wln-es-http
+            port:
+              number: 9200
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts:
+      - elasticsearch.hids.one
+      secretName: elasticsearch-es-secret
+
