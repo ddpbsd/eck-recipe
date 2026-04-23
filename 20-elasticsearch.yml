@@ -50,14 +50,4 @@ spec:
           requests:
             storage: 100Gi
         storageClassName: local-data
-  http:
-    service:
-      spec:
-        type: LoadBalancer
-        loadBalancerIP: 192.168.8.80
-    tls:
-      #selfSignedCertificate:
-      #  disabled: true
-      certificate:
-        secretName: elasticsearch-es-secret
 
