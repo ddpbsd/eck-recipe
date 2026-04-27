@@ -51,3 +51,20 @@ spec:
           id: fleet_server-1
           package:
             name: fleet_server
+      - name: Agent on ECK
+        id: eck-agent
+        is_managed: true
+        namespace: default
+        monitoring_enabled:
+          - logs
+          - metrics
+        unenroll_timeout: 900
+        package_policies:
+          - name: system-2
+            id: system-2
+            package:
+              name: system
+          - name: kubernetes
+            id: kubernetes-2
+            package:
+              name: kubernetes
