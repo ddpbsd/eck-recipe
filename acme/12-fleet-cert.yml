@@ -5,7 +5,7 @@ metadata:
   name: fleet-hids-one
   namespace: default
 spec:
-  secretName: fleet-secret
+  secretName: fleet-server-secret
   isCA: false
   commonName: fleet.hids.one
   subject:
