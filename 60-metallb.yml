@@ -15,4 +15,6 @@ apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
   name: lab
-
+spec:
+  ipAddressPools:
+  - default-pool
