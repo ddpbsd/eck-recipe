@@ -68,3 +68,16 @@ spec:
             id: kubernetes-2
             package:
               name: kubernetes
+      - name: synthetics agent
+        id: eck-synthetics-agent
+        is_managed: true
+        namespace: default
+        monitoring_enabled:
+          - logs
+          - metrics
+        unenroll_timeout: 900
+        package_policies:
+          - name: system-2
+            id: system-2
+            package:
+              name: system

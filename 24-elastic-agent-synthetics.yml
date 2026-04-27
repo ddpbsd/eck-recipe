@@ -11,7 +11,7 @@ spec:
   fleetServerRef:
     name: fleet-server
   mode: fleet
-  policyID: synth-agent
+  policyID: eck-synthetics-agent
   deployment:
     replicas: 2
     podTemplate:
