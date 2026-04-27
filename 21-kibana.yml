@@ -26,8 +26,8 @@ spec:
   config:
     server.publicBaseUrl: https://kibana.hids.one
     xpack.reporting.kibanaServer.hostname: kibana.hids.one
-    xpack.fleet.agents.elasticsearch.hosts: ["https://elasticsearch.hids.one:9200"]
-    xpack.fleet.agents.fleet_server.hosts: ["https://fleet.hids.one:8220"]
+    xpack.fleet.agents.elasticsearch.hosts: ["https://elasticsearch.hids.one"]
+    xpack.fleet.agents.fleet_server.hosts: ["https://fleet.hids.one"]
     xpack.fleet.packages:
       - name: system
         version: latest
@@ -51,46 +51,3 @@ spec:
           id: fleet_server-1
           package:
             name: fleet_server
-      - name: Elastic Agent on ECK policy
-        id: eck-agent
-        namespace: default
-        is_managed: false
-        monitoring_enabled:
-          - logs
-          - metrics
-        unenroll_timeout: 900
-        package_policies:
-          - name: system-1
-            id: system-1
-            package:
-              name: system
-          - name: kubernetes-1
-            id: kubernetes-1
-            package:
-              name: kubernetes
-      - name: synthetics agent policy
-        id: synth-agent
-        namespace: default
-        is_managed: false
-        monitoring_enabled:
-          - logs
-          - metrics
-        unenroll_timeout: 900
-        package_policies:
-          - name: system-1
-            id: system-1
-            package:
-              name: system
-      - name: synthetics agent policy
-        id: synth-agent
-        namespace: default
-        is_managed: false
-        monitoring_enabled:
-          - logs
-          - metrics
-        unenroll_timeout: 900
-        package_policies:
-          - name: system-1
-            id: system-1
-            package:
-              name: system
