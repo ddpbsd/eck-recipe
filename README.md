@@ -2,10 +2,11 @@
 
 This is a quick repo for me to store the configs as I play with them.
 
+## current status
+
+In constant flux
 
 ## upgrades
-
-
 
 ### fleet signing key error
 
