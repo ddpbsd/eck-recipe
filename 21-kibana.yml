@@ -34,8 +34,8 @@ spec:
         name: Default
         type: elasticsearch
         hosts: ["https://elasticsearch.hids.one"]
-        ssl:
-          certificate_authorities: ["/mnt/additional-certs/ca.crt/ca.crt"]
+        #ssl:
+        #  certificate_authorities: ["/mnt/additional-certs/ca.crt/ca.crt"]
         #ca_trusted_fingerprint: ED2D484D5E9D223088FD6B5F5F8228E2F0991A0A1201FAA8AE22661605151F49
         is_default: true
         is_default_monitoring: true
