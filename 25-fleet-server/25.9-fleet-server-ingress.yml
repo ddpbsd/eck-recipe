@@ -1,0 +1,61 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: >-
+      [{"addresses":["192.168.8.71"],"port":443,"protocol":"HTTPS","serviceName":"default:fleet-svc","ingressName":"default:fleet-server-ingress","hostname":"fleet.hids.one","path":"/","allNodes":false}]
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  creationTimestamp: '2026-04-27T16:59:59Z'
+  generation: 3
+  managedFields:
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:loadBalancer:
+            f:ingress: {}
+      manager: nginx-ingress-controller
+      operation: Update
+      subresource: status
+      time: '2026-04-27T17:00:57Z'
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:field.cattle.io/publicEndpoints: {}
+            f:nginx.ingress.kubernetes.io/backend-protocol: {}
+        f:spec:
+          f:ingressClassName: {}
+          f:rules: {}
+          f:tls: {}
+      manager: rancher
+      operation: Update
+      time: '2026-04-30T17:55:49Z'
+  name: fleet-server-ingress
+  namespace: default
+  resourceVersion: '66136729'
+  uid: e6d68985-ed55-4b08-925a-78c6e35497cc
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: fleet.hids.one
+      http:
+        paths:
+          - backend:
+              service:
+                name: fleet-svc
+                port:
+                  number: 443
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - fleet.hids.one
+      secretName: fleet-server-secret
+status:
+  loadBalancer:
+    ingress:
+      - ip: 192.168.8.71
+

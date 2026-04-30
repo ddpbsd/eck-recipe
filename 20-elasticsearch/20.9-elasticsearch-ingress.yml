@@ -1,0 +1,72 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: >-
+      [{"addresses":["192.168.8.71"],"port":443,"protocol":"HTTPS","serviceName":"default:elasticsearch-wln-es-http","ingressName":"default:elasticsearch-ingress","hostname":"elasticsearch.hids.one","path":"/","allNodes":false}]
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/backend-protocol":"HTTPS"},"name":"elasticsearch-ingress","namespace":"default"},"spec":{"ingressClassName":"nginx","rules":[{"host":"elasticsearch.hids.one","http":{"paths":[{"backend":{"service":{"name":"elasticsearch-wln-es-http","port":{"number":9200}}},"path":"/","pathType":"Prefix"}]}}],"tls":[{"hosts":["elasticsearch.hids.one"],"secretName":"elasticsearch-es-secret"}]}}
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  creationTimestamp: '2026-04-23T20:53:17Z'
+  generation: 1
+  managedFields:
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+            f:nginx.ingress.kubernetes.io/backend-protocol: {}
+        f:spec:
+          f:ingressClassName: {}
+          f:rules: {}
+          f:tls: {}
+      manager: kubectl-client-side-apply
+      operation: Update
+      time: '2026-04-23T20:53:17Z'
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:loadBalancer:
+            f:ingress: {}
+      manager: nginx-ingress-controller
+      operation: Update
+      subresource: status
+      time: '2026-04-23T20:53:57Z'
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            f:field.cattle.io/publicEndpoints: {}
+      manager: rancher
+      operation: Update
+      time: '2026-04-23T20:53:57Z'
+  name: elasticsearch-ingress
+  namespace: default
+  resourceVersion: '63970788'
+  uid: 56581de3-a1d2-4507-bd89-46f6fa11210f
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: elasticsearch.hids.one
+      http:
+        paths:
+          - backend:
+              service:
+                name: elasticsearch-wln-es-http
+                port:
+                  number: 9200
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - elasticsearch.hids.one
+      secretName: elasticsearch-es-secret
+status:
+  loadBalancer:
+    ingress:
+      - ip: 192.168.8.71
+

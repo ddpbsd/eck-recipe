@@ -1,0 +1,61 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: >-
+      [{"addresses":["192.168.8.71"],"port":443,"protocol":"HTTPS","serviceName":"default:kibana-kb-http","ingressName":"default:kibana-ingress","hostname":"kibana.hids.one","path":"/","allNodes":false}]
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  creationTimestamp: '2026-04-27T15:11:36Z'
+  generation: 1
+  managedFields:
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:loadBalancer:
+            f:ingress: {}
+      manager: nginx-ingress-controller
+      operation: Update
+      subresource: status
+      time: '2026-04-27T15:11:57Z'
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:field.cattle.io/publicEndpoints: {}
+            f:nginx.ingress.kubernetes.io/backend-protocol: {}
+        f:spec:
+          f:ingressClassName: {}
+          f:rules: {}
+          f:tls: {}
+      manager: rancher
+      operation: Update
+      time: '2026-04-27T16:07:21Z'
+  name: kibana-ingress
+  namespace: default
+  resourceVersion: '65116226'
+  uid: 57e7bee7-42ce-4e00-8cc5-4aefcd0cd56e
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: kibana.hids.one
+      http:
+        paths:
+          - backend:
+              service:
+                name: kibana-kb-http
+                port:
+                  number: 5601
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - kibana.hids.one
+      secretName: kibana-kb-secret
+status:
+  loadBalancer:
+    ingress:
+      - ip: 192.168.8.71
+
