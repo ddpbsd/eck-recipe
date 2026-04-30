@@ -5,7 +5,7 @@ kind: Kibana
 metadata:
   name: kibana
 spec:
-  version: 9.3.3
+  version: 9.3.4
   count: 1
   elasticsearchRef:
     name: elasticsearch-wln
