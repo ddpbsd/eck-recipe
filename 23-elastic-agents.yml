@@ -35,14 +35,14 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: elastic-agent
-          image: docker.elastic.co/elastic-agent/elastic-agent:9.3.3.build202604082258
+          image: docker.elastic.co/elastic-agent/elastic-agent:9.3.4
           env:
             # Set to 1 for enrollment into Fleet server. If not set, Elastic Agent is run in standalone mode
             - name: FLEET_ENROLL
               value: "1"
             # Set to true to communicate with Fleet with either insecure HTTP or unverified HTTPS
             - name: FLEET_INSECURE
-              value: "true"
+              value: "false"
             # Fleet Server URL to enroll the Elastic Agent into
             # FLEET_URL can be found in Kibana, go to Management > Fleet > Settings
             - name: FLEET_URL
@@ -50,7 +50,7 @@ spec:
             # Elasticsearch API key used to enroll Elastic Agents in Fleet (https://www.elastic.co/guide/en/fleet/current/fleet-enrollment-tokens.html#fleet-enrollment-tokens)
             # If FLEET_ENROLLMENT_TOKEN is empty then KIBANA_HOST, KIBANA_FLEET_USERNAME, KIBANA_FLEET_PASSWORD are needed
             - name: FLEET_ENROLLMENT_TOKEN
-              value: "QjF1X3o1MEI3NzYxUDlXVmVXcjA6d3BBaXJ4UlN0MHlUWDdFclVMRTFVdw=="
+              value: "XXX_ENROLLMENT_TOKEN"
             - name: KIBANA_HOST
               value: "http://kibana:5601"
             # The basic authentication username used to connect to Kibana and retrieve a service_token to enable Fleet
@@ -121,6 +121,9 @@ spec:
               mountPath: /sys/kernel/debug
             - name: elastic-agent-state
               mountPath: /usr/share/elastic-agent/state
+            - name: openbsd-cert
+              mountPath: /mnt/additional-certs/ca.crt
+              readOnly: true
       volumes:
         - name: proc
           hostPath:
@@ -161,6 +164,11 @@ spec:
           hostPath:
             path: /var/lib/elastic-agent-managed/kube-system/state
             type: DirectoryOrCreate
+        - name: openbsd-cert
+          secret:
+            defaultMode: 420
+            optional: false
+            secretName: openbsd-cert
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
