@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleet-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fleet-server
+  template:
+    metadata:
+      labels:
+        app: fleet-server
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: elastic-agent
+        image: docker.elastic.co/elastic-agent/elastic-agent:9.3.4
+        env:
+          - name: FLEET_SERVER_ENABLE
+            value: "true"
+          - name: FLEET_SERVER_ELASTICSEARCH_HOST
+            value: "https://elasticsearch.hids.one:443"
+          - name: FLEET_SERVER_SERVICE_TOKEN
+            value: REPLACE_WITH_TOKEN_XXX
+          - name: FLEET_SERVER_POLICY_ID
+            value: eck-fleet-server
+          #- name: ELASTICSEARCH_CA
+          #  value: /mnt/certs/es-ca.crt
+        ports:
+        - containerPort: 8220
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - name: certs
+          mountPath: /mnt/certs
+          readOnly: true
+        - name: openbsd-certs
+          mountPath: /mnt/additional-certs/ca.crt
+          readOnly: true
+      volumes:
+      - name: certs
+        secret:
+          defaultMode: 420
+          optional: false
+          secretName: fleet-server-ssl
+      - name: openbsd-certs
+        secret:
+          defaultMode: 420
+          optional: false
+          secretName: openbsd-cert
