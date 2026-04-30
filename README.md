@@ -4,7 +4,9 @@ This is a quick repo for me to store the configs as I play with them.
 
 ## current status
 
-In constant flux
+In constant flux.
+
+I need to actually write instructions on how to use it so I don't have to remember.
 
 ## upgrades
 
