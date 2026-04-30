@@ -1,161 +1,64 @@
----
-apiVersion: agent.k8s.elastic.co/v1alpha1
-kind: Agent
+apiVersion: v1
+kind: Service
 metadata:
-  name: fleet-server
-  namespace: default
+  name: fleet-svc
 spec:
-  version: 9.3.3
-  policyID: eck-fleet-server
-  kibanaRef:
-    name: kibana
-  elasticsearchRefs:
-  - name: elasticsearch-wln
-  mode: fleet
-  fleetServerEnabled: true
-  deployment:
-    replicas: 1
-    podTemplate:
-      spec:
-        serviceAccountName: fleet-server
-        automountServiceAccountToken: true
-        securityContext:
-          runAsUser: 0
-        volumes:
-        - name: agent-data
-          emptyDir: {}
+  type: ClusterIP
+  selector:
+    app: fleet-server
+  ports:
+  - port: 443
+    protocol: TCP
+    targetPort: 8220
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: fleet-server
-rules:
-- apiGroups: [""]
-  resources:
-  - pods
-  - namespaces
-  - nodes
-  verbs:
-  - get
-  - watch
-  - list
-- apiGroups: ["apps"]
-  resources:
-    - replicasets
-  verbs:
-    - get
-    - watch
-    - list
-- apiGroups: ["batch"]
-  resources:
-    - jobs
-  verbs:
-    - get
-    - watch
-    - list
-- apiGroups: ["coordination.k8s.io"]
-  resources:
-  - leases
-  verbs:
-  - get
-  - create
-  - update
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: fleet-server
-  namespace: default
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: fleet-server
-subjects:
-- kind: ServiceAccount
-  name: fleet-server
-  namespace: default
-roleRef:
-  kind: ClusterRole
-  name: fleet-server
-  apiGroup: rbac.authorization.k8s.io
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: elastic-agent
-rules:
-- apiGroups: [""]
-  resources:
-  - pods
-  - nodes
-  - namespaces
-  - events
-  - services
-  - configmaps
-  verbs:
-  - get
-  - watch
-  - list
-- apiGroups: ["coordination.k8s.io"]
-  resources:
-  - leases
-  verbs:
-  - get
-  - create
-  - update
-- nonResourceURLs:
-  - "/metrics"
-  verbs:
-  - get
-- apiGroups: ["extensions"]
-  resources:
-    - replicasets
-  verbs:
-  - "get"
-  - "list"
-  - "watch"
-- apiGroups:
-  - "apps"
-  resources:
-  - statefulsets
-  - deployments
-  - replicasets
-  verbs:
-  - "get"
-  - "list"
-  - "watch"
-- apiGroups:
-  - ""
-  resources:
-  - nodes/stats
-  verbs:
-  - get
-- apiGroups:
-  - "batch"
-  resources:
-  - jobs
-  verbs:
-  - "get"
-  - "list"
-  - "watch"
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: elastic-agent
-  namespace: default
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: elastic-agent
-subjects:
-- kind: ServiceAccount
-  name: elastic-agent
-  namespace: default
-roleRef:
-  kind: ClusterRole
-  name: elastic-agent
-  apiGroup: rbac.authorization.k8s.io
-...
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fleet-server
+  template:
+    metadata:
+      labels:
+        app: fleet-server
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: elastic-agent
+        image: docker.elastic.co/elastic-agent/elastic-agent:9.3.4
+        env:
+          - name: FLEET_SERVER_ENABLE
+            value: "true"
+          - name: FLEET_SERVER_ELASTICSEARCH_HOST
+            value: "https://elasticsearch.hids.one:443"
+          - name: FLEET_SERVER_SERVICE_TOKEN
+            value: REPLACE_WITH_TOKEN_XXX
+          - name: FLEET_SERVER_POLICY_ID
+            value: eck-fleet-server
+          #- name: ELASTICSEARCH_CA
+          #  value: /mnt/certs/es-ca.crt
+        ports:
+        - containerPort: 8220
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - name: certs
+          mountPath: /mnt/certs
+          readOnly: true
+        - name: openbsd-certs
+          mountPath: /mnt/additional-certs/ca.crt
+          readOnly: true
+      volumes:
+      - name: certs
+        secret:
+          defaultMode: 420
+          optional: false
+          secretName: fleet-server-ssl
+      - name: openbsd-certs
+        secret:
+          defaultMode: 420
+          optional: false
+          secretName: openbsd-cert
