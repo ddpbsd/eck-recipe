@@ -26,8 +26,19 @@ spec:
   config:
     server.publicBaseUrl: https://kibana.hids.one
     xpack.reporting.kibanaServer.hostname: kibana.hids.one
-    xpack.fleet.agents.elasticsearch.hosts: ["https://elasticsearch.hids.one"]
+    #xpack.fleet.agents.elasticsearch.hosts: ["https://elasticsearch.hids.one"]
     xpack.fleet.agents.fleet_server.hosts: ["https://fleet.hids.one"]
+    #xpack.fleet.agents.elasticsearch.ca_sha256: "c2hhMjU2IEZpbmdlcnByaW50PUVEOjJEOjQ4OjREOjVFOjlEOjIyOjMwOjg4OkZEOjZCOjVGOjVGOjgyOjI4OkUyOkYwOjk5OjFBOjBBOjEyOjAxOkZBOkE4OkFFOjIyOjY2OjE2OjA1OjE1OjFGOjQ5Cg=="
+    xpack.fleet.outputs:
+      - id: fleet-default-output
+        name: Default
+        type: elasticsearch
+        hosts: ["https://elasticsearch.hids.one"]
+        ssl:
+          certificate_authorities: ["/mnt/additional-certs/ca.crt/ca.crt"]
+        #ca_trusted_fingerprint: ED2D484D5E9D223088FD6B5F5F8228E2F0991A0A1201FAA8AE22661605151F49
+        is_default: true
+        is_default_monitoring: true
     xpack.fleet.packages:
       - name: system
         version: latest
